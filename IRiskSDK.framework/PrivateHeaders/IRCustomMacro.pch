@@ -1,0 +1,142 @@
+//
+//  IRCustomMacro.h
+//  IRiskSDK
+//
+//  Created by 王猛 on 2020/8/12.
+//  Copyright © 2020 owen. All rights reserved.
+//
+
+#ifndef IRCustomMacro_h
+#define IRCustomMacro_h
+
+#import "UIColor+Hex.h"
+#import <IRiskSDK/YIMasonry.h>
+#import <IRiskSDK/QHNetworking.h>
+#import <IRiskSDK/UIView+IRExtension.h>
+#import <IRiskSDK/NetWorkManager+IRriskRequest.h>
+#import <IRiskSDK/IRMJExtension.h>
+#import "IRIBundle.h"
+
+
+/*********************************一些宏的定义************************************/
+//字符串是否为空
+#define IsStrEmpty(_ref)    (((_ref) == nil) || ([(_ref) isEqual:[NSNull null]]) ||([(_ref)isEqualToString:@""]))
+//数组是否为空
+#define IsArrEmpty(_ref)    (((_ref) == nil) || ([(_ref) isEqual:[NSNull null]]) ||([(_ref) count] == 0))
+
+#define WeakSelf __weak typeof(self) weakSelf = self
+
+
+/********************************* 变量 ************************************/
+#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
+#define ScreenWidth  [[UIScreen mainScreen] bounds].size.width
+
+//宽度适配
+#define W(w)  ( ScreenWidth / 375.0 * w )
+#define H(h)  ( ScreenHeight / 667.0 * h )
+
+///适配iPhoneX导航栏高度，88
+#define safeAreaTopHeight ((ScreenHeight >= 812.0 && [[UIDevice currentDevice].model isEqualToString:@"iPhone"]) ? 88 : 64)
+///适配iPhoneX状态栏高度，44
+#define SafeAreaStatusHeight ((ScreenHeight >= 812.0 && [[UIDevice currentDevice].model isEqualToString:@"iPhone"]) ? 44 : 20)
+/// 适配iPhoneX底部距离，34
+#define safeAreaBottomHeight ((ScreenHeight >= 812.0 && [[UIDevice currentDevice].model isEqualToString:@"iPhone"]) ? 34 : 0)
+///适配iPhoneX横屏时，左边刘海高度
+#define SafeAreaLandscapeLeft ((ScreenHeight >= 812.0 && [[UIDevice currentDevice].model isEqualToString:@"iPhone"]) ? 34 : 0)
+///SafeAreaLandscapeBottom
+#define SafeAreaLandscapeBottom ((ScreenHeight >= 812.0 && [[UIDevice currentDevice].model isEqualToString:@"iPhone"]) ? 20 : 0)
+
+/// 相对屏幕左右边间距
+#define safeAreaMargin 16
+#define safeAreaMarginLine 19
+/// 上下间距
+#define SafeAreaDistance 12
+
+
+/// 是否是SE 1代手机
+#define isiPhoneSE1 (ScreenHeight <= 568 && ScreenWidth == 320) ? true : false
+//#define isiPhoneSE1 [[UIDevice supportedDeviceName] isEqualToString:@"iPhoneSE"] ? true : false
+
+/// 是否是SE 代手机
+#define isiPhone6 (ScreenHeight == 667 && ScreenWidth == 375) ? true : false
+
+
+
+#define SINGLE_LINE_ADJUST_OFFSET (1.0f / [UIScreen mainScreen].scale) / 2
+
+#define SINGLE_LINE_Hight (1 / [UIScreen mainScreen].scale)
+
+#define TABBAR_HEIGHT ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
+
+#define GetX(view) view.frame.origin.x
+#define GetY(view) view.frame.origin.y
+#define GetWidth(view) view.frame.size.width
+#define GetHeight(view) view.frame.size.height
+#define RIGHT(view) view.frame.origin.x + view.frame.size.width
+#define Bottom(view) view.frame.origin.y + view.frame.size.height
+
+
+/********************************* Log日志 ************************************/
+#ifdef DEBUG
+//#define NSLog_d(fmt, ...) NSLog((@"File_name:%s\nFuntion_Name:%s\nlines:%d \n" fmt), [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String] , __FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define NSLog_d(fmt, ...) NSLog((@"File_name:%s\n" fmt), [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String] , ##__VA_ARGS__);
+
+#else
+#define NSLog_d(...)
+#endif
+
+
+#define kUserDefaults       [NSUserDefaults standardUserDefaults]
+
+/********************************* 变量的值************************************/
+/// 网络请求链接
+#define kHttpUrl  @"httpUrl"
+/// h5链接
+#define kH5Url  @"h5Url"
+/// 用户令牌的token
+#define kAccessToken  @"accessToken"
+///  刷新token
+#define kRefreshToken  @"refreshToken"
+
+#pragma - mark 颜色定义
+//主色和辅助色
+#define MAIN_BLUE_COLOR [UIColor colorWithHexString:@"1878EB"]
+#define ASSIST_GREEN_COLOR [UIColor colorWithHexString:@"00BB77"]
+#define ASSIST_YELLOW_COLOR [UIColor colorWithHexString:@"B08500"]
+#define ASSIST_RED_COLOR [UIColor colorWithHexString:@"E32416"]
+#define ALERT_COLOR [UIColor colorWithHexString:@"E32416"]
+#define MAIN_Grey_COLOR [UIColor colorWithHexString:@"AFB5BD"]
+#define MAIN_LightGrey_COLOR [UIColor colorWithHexString:@"F8F9FB"]
+// 标签
+#define MAIN_TipBGYellow_COLOR [UIColor colorWithHexString:@"FBF3D6"]
+#define MAIN_TipTextYellow_COLOR [UIColor colorWithHexString:@"BC892E"]
+#define MAIN_TipBGblue_COLOR [UIColor colorWithHexString:@"E8F3FF"]
+#define MAIN_TipBGRED_COLOR [UIColor colorWithHexString:@"FFE9E7"]
+#define MAIN_TipTextRED_COLOR [UIColor colorWithHexString:@"D81E06"]
+//黑色文字颜色
+#define MAIN_TEXT_BLACK_COLOR [UIColor colorWithHexString:@"323A52"]
+#define ASSIST_TEXT_COLOR [UIColor colorWithHexString:@"79808B"]
+#define ASSIST_TEXT_UNCLICKCOLOR [UIColor colorWithHexString:@"D6D6D6"]
+#define TEXT_0808Black_Color [UIColor colorWithHexString:@"080808"]
+//背景色和线色
+#define BGVIEW_COLOR [UIColor colorWithHexString:@"F9FAFC"]
+#define LINE_COLOR1 [UIColor colorWithHexString:@"EBEBEB"]
+#define LINE_COLOR2 [UIColor colorWithHexString:@"F4F4F4"]
+#define LINE_COLOR3 [UIColor colorWithHexString:@"E5E5E5"]
+
+
+//白色
+#define WHITE_COLOR [UIColor colorWithWhite:1 alpha:1]
+
+#define Medium_FONT(font) [UIFont fontWithName:@"PingFangSC-Medium" size: font]
+
+#define Regular_FONT(font) [UIFont fontWithName:@"PingFangSC-Regular" size: font]
+
+#define Light_FONT(font) [UIFont fontWithName:@"PingFangSC-Light" size: font]
+
+#define Semibold_FONT(font) [UIFont fontWithName:@"PingFangSC-Semibold" size: font]
+
+
+
+
+#endif /* IRCustomMacro_h */

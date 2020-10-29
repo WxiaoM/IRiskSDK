@@ -1,0 +1,6 @@
+framework module IRiskSDK {
+  umbrella header "IRiskSDK.h"
+
+  export *
+  module * { export * }
+}
